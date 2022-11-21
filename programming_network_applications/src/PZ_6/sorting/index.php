@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  Answer:
+  <pre>
+  <?php
+    $ARRAY_SIZE = 50;
+    function getRandomArray(int $length): Array {
+      $array = range(0, $length);
+      shuffle($array);
+      echo "\n\tUnsorted array: ";
+      printArray($array);
+
+      return $array;
+    }
+
+    function printArray(Array $arr) {
+      echo json_encode($arr)."\n\t";
+    }
+
+    function heapify(&$arr, $n, $i) {
+      $largest = $i; // Инициализируем наибольший элемент как корень
+      $l = 2*$i; // левый = 2*i + 1
+      $r = 2*$i + 1; // правый = 2*i + 2
+
+      // Если левый дочерний элемент больше корня
+      if ($l < $n && $arr[$l] > $arr[$largest])
+        $largest = $l;
+
+      //Если правый дочерний элемент больше, чем самый большой элемент на данный момент
+      if ($r < $n && $arr[$r] > $arr[$largest])
+        $largest = $r;
+
+      // Если самый большой элемент не корень
+      if ($largest != $i) {
+        $swap = $arr[$i];
+        $arr[$i] = $arr[$largest];
+        $arr[$largest] = $swap;
+
+        // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
+        heapify($arr, $n, $largest);
+      }
+    }
+
+    //Основная функция, выполняющая пирамидальную сортировку
+    function heapSort(&$arr) {
+      $n = count($arr);
+      // Построение кучи (перегруппируем массив)
+      for ($i = $n / 2 - 1; $i >= 0; $i--)
+        heapify($arr, $n, $i);
+
+      //Один за другим извлекаем элементы из кучи
+      for ($i = $n-1; $i >= 0; $i--)
+      {
+        // Перемещаем текущий корень в конец
+        $temp = $arr[0];
+        $arr[0] = $arr[$i];
+        $arr[$i] = $temp;
+
+        // вызываем процедуру heapify на уменьшенной куче
+        heapify($arr, $i, 0);
+      }
+    }
+
+    $arr1 = getRandomArray($ARRAY_SIZE);
+    heapSort($arr1);
+    echo "Pyramidal sort: ";
+    printArray($arr1);
+
+    function shellSort(&$a) {
+      $sort_length = count($a) - 1;
+      $step = ceil(($sort_length + 1)/2);
+      // переделать на массив чисел!
+
+      do
+      {
+        $i = ceil($step);
+        do
+        {
+          $j=$i-$step;
+          $c=1;
+          do
+          {
+            if($a[$j]<=$a[$j+$step])
+            {
+            $c=0;
+            }
+            else
+          {
+              $tmp=$a[$j];
+              $a[$j]=$a[$j+$step];
+              $a[$j+$step]=$tmp;
+          }
+        $j=$j-1;
+          }
+          while($j>=0 && ($c==1));
+            $i = $i+1;
+          }
+          while($i<=$sort_length);
+          $step = $step/2;
+      }
+      while($step>0);
+    }
+
+    $arr2 = getRandomArray($ARRAY_SIZE);
+    shellSort($arr2);
+    echo "Shell sort: ";
+    printArray($arr2);
+
+    function quickSort(&$arr, $low, $high) {
+      $i = $low;                
+      $j = $high;
+      $middle = $arr[($low + $high)/2];  // middle — опорный элемент; в нашей реализации он находится посередине между low и high
+      do {
+        while($arr[$i] < $middle) ++$i;  // ищем элементы для правой части
+        while($arr[$j] > $middle) --$j;  // ищем элементы для левой части
+      
+        if($i <= $j){           
+          // перебрасываем элементы
+          $temp = $arr[$i];
+          $arr[$i] = $arr[$j];
+          $arr[$j] = $temp;
+          // следующая итерация
+          $i++; $j--;
+        }
+      } while($i < $j);
+        
+      if($low < $j){
+        // рекурсивно вызываем сортировку для левой части
+        quickSort($arr, $low, $j);
+      } 
+
+      if($i < $high){
+        // рекурсивно вызываем сортировку для правой части
+        quickSort($arr, $i, $high);
+      } 
+    }
+
+    $arr3 = getRandomArray($ARRAY_SIZE);
+    quickSort($arr3, 0, $ARRAY_SIZE);
+    echo "Quick sort: ";
+    printArray($arr3);
+  ?>   
+  </pre>
+</body>
+
+</html>
