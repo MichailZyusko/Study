@@ -24,33 +24,32 @@
 
 
     function binarySearch($key, Array $arr): int {
-        // check for empty array
-        if (count($arr) === 0) return -1;
-        $low = 0;
-        $high = count($arr) - 1;
+      if (count($arr) === 0) return -1;
+
+      $low = 0;
+      $high = count($arr) - 1;
           
-        while ($low <= $high) {
-              
-            // compute middle index
-            $mid = floor(($low + $high) / 2);
+      while ($low <= $high) {       
+        // compute middle index
+        $mid = floor(($low + $high) / 2);
       
-            // element found at mid
-            if($arr[$mid] == $key) {
-                return $mid;
-            }
-      
-            if ($key < $arr[$mid]) {
-                // search the left side of the array
-                $high = $mid -1;
-            }
-            else {
-                // search the right side of the array
-                $low = $mid + 1;
-            }
+        // element found at mid
+        if($arr[$mid] == $key) {
+          return $mid;
         }
+      
+        if ($key < $arr[$mid]) {
+          // search the left side of the array
+          $high = $mid -1;
+        }
+        else {
+          // search the right side of the array
+          $low = $mid + 1;
+        }
+      }
           
-        // If we reach here element key doesnt exist
-        return -1;
+      // If we reach here element key doesnt exist
+      return -1;
     };
 
     echo "\tbinarySearch: ".binarySearch(6, $input)."\n";
@@ -120,37 +119,29 @@
     echo "\tknutMorrisPrat: ".knutMorrisPrat($string, $target_string)."\n";
     echo "\tknutMorrisPrat: ".knutMorrisPrat($string, "I love artsiom samuilik")."\n";
 
-    
+       
     function boerMur(string $str = '', string $substr = ''): int {
       $n = strlen($str);
       $m = strlen($substr);
+      
+      $badchar = [];
+ 
+      for ($i = 0; $i < $m; $i++)
+        $badchar[ord($substr[$i])] = $i;
 
-      // prefix
-      $d[0] = 0;
-      for ($i = 1, $j = 0; $i < $m; $i++) {
-        while($j > 0 && $substr[$j] != $substr[$i]) {
-          $j = $d[$j - 1];
+      $s = 0;
+      while ($s <= ($n - $m)) {
+        $j = $m - 1;
+
+        while ($j >= 0 && $substr[$j] == $str[$s + $j]) {
+          $j--;
         }
 
-        if($substr[$j] == $substr[$i]) {
-          $j++;
+        if ($j < 0) {
+          return $s;
         }
-
-        $d[$i] = $j;
-      }
-
-      // search
-      for($i = 0, $j = 0; $i < $n; $i++) {
-        while($j > 0 && $substr[$j] != $str[$i]) {
-          $j = $d[$j - 1];
-        }
-
-        if($substr[$j] == $str[$i]) {
-          $j++;
-        }
-
-        if($j == $m) {
-          return $i - $j + 1;
+        else {
+          $s += max(1, $j - $badchar[$s + $j]);
         }
       }
 

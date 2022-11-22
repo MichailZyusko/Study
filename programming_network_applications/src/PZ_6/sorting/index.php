@@ -5,7 +5,7 @@
   Answer:
   <pre>
   <?php
-    $ARRAY_SIZE = 50;
+    $ARRAY_SIZE = 60;
     function getRandomArray(int $length): Array {
       $array = range(0, $length);
       shuffle($array);
@@ -21,16 +21,17 @@
 
     function heapify(&$arr, $n, $i) {
       $largest = $i; // Инициализируем наибольший элемент как корень
-      $l = 2*$i; // левый = 2*i + 1
-      $r = 2*$i + 1; // правый = 2*i + 2
+      $l = 2*$i + 1; // левый = 2*i + 1
+      $r = 2*$i + 2; // правый = 2*i + 2
 
       // Если левый дочерний элемент больше корня
-      if ($l < $n && $arr[$l] > $arr[$largest])
+      if ($l < $n && $arr[$l] > $arr[$largest]) {
         $largest = $l;
-
+      }
       //Если правый дочерний элемент больше, чем самый большой элемент на данный момент
-      if ($r < $n && $arr[$r] > $arr[$largest])
+      if ($r < $n && $arr[$r] > $arr[$largest]) {
         $largest = $r;
+      }
 
       // Если самый большой элемент не корень
       if ($largest != $i) {
@@ -47,11 +48,11 @@
     function heapSort(&$arr) {
       $n = count($arr);
       // Построение кучи (перегруппируем массив)
-      for ($i = $n / 2 - 1; $i >= 0; $i--)
-        heapify($arr, $n, $i);
-
+      for ($i = $n / 2; $i >= 0; $i--) {
+        heapify($arr, $n, $i - 1);
+      }
       //Один за другим извлекаем элементы из кучи
-      for ($i = $n-1; $i >= 0; $i--)
+      for ($i = $n - 1; $i >= 0; $i--)
       {
         // Перемещаем текущий корень в конец
         $temp = $arr[0];
@@ -141,6 +142,107 @@
     quickSort($arr3, 0, $ARRAY_SIZE);
     echo "Quick sort: ";
     printArray($arr3);
+
+        
+    function merge(array $left, array $right) {
+        $ret = array();
+        while (count($left) > 0 && count($right) > 0) {
+            if ($left[0] < $right[0]) {
+                array_push($ret, array_shift($left));
+            } else {
+                array_push($ret, array_shift($right));
+            }
+        }
+     
+        array_splice($ret, count($ret), 0, $left);
+        array_splice($ret, count($ret), 0, $right);
+     
+        return $ret;
+    }
+
+    //Сортировка слиянием
+    function mergeSort(array $arr) {
+        $count = count($arr);
+        if ($count <= 1) {
+            return $arr;
+        }
+ 
+        $left  = array_slice($arr, 0, (int)($count/2));
+        $right = array_slice($arr, (int)($count/2));
+ 
+        $left = mergeSort($left);
+        $right = mergeSort($right);
+ 
+        return merge($left, $right);
+    }   
+    
+    $arr4 = getRandomArray($ARRAY_SIZE);
+    $arr4 = mergeSort($arr4);
+    echo "Merge sort: ";
+    printArray($arr4);
+
+    // //Сортировка простым слиянием
+    // function mergeSimpleSort(&$arr, $n) {
+    //     $mid = $n / 2; // находим середину сортируемой последовательности
+    //     if ($n % 2 == 1) {
+    //         $mid++;
+    //     }
+    //     $h = 1; // шаг
+    //     // выделяем память под формируемую последовательность
+    //     $c = array();
+    //     $step = $h;
+        
+    //     while ($h < $n) 
+    //     {
+    //         $step = $h;
+    //         $i = 0;   // индекс первого пути
+    //         $j = $mid; // индекс второго пути
+    //         $k = 0;   // индекс элемента в результирующей последовательности
+
+    //         while ($step <= $mid) {
+    //             while (($i < $step) && ($j < $n) && ($j < ($mid + $step))) { // пока не дошли до конца пути
+    //             // заполняем следующий элемент формируемой последовательности
+    //             // меньшим из двух просматриваемых
+    //             if ($a[$i] < $a[$j]) {
+    //                 $c[$k] = $a[$i];
+    //                 $i++;
+    //                 $k++;
+    //             }
+    //             else {
+    //                 $c[$k] = $a[$j];
+    //                 $j++;
+    //                 $k++;
+    //             }
+    //             }
+                
+    //             while ($i < $step) { // переписываем оставшиеся элементы первого пути (если второй кончился раньше)
+    //                 $c[$k] = $a[$i];
+    //                 $i++;
+    //                 $k++;
+    //             }
+      
+    //             while (($j < ($mid + $step)) && ($j<$n)) {  // переписываем оставшиеся элементы второго пути (если первый кончился раньше)
+    //                 $c[$k] = $a[$j];
+    //                 $j++;
+    //                 $k++;
+    //             }
+                
+    //             $step = $step + $h; // переходим к следующему этапу
+    //         }
+            
+    //         $h = $h * 2;
+    //         // Переносим упорядоченную последовательность (промежуточный вариант) в исходный массив
+    //         for ($i = 0; $i<$n; $i++) {
+    //             $a[$i] = $c[$i];
+    //         }
+    //     }
+    // } 
+    
+    // $arr5 = getRandomArray($ARRAY_SIZE);
+    // mergeSimpleSort($arr5, $ARRAY_SIZE);
+    // echo "Merge sort: ";
+    // printArray($arr5);
+
   ?>   
   </pre>
 </body>
