@@ -103,7 +103,7 @@ function getRandomTree(int $length): BinaryTree {
     $tree->insert($r);
     echo "$r ";
   }
-  echo "\n\Tree: ";
+  echo "\nTree: ";
   printTree($tree);
 
   return $tree;
