@@ -12,3 +12,5 @@
 3. Run the command `cd "Study/programming_network_applications"`
 4. Run `docker-compose up`
 5. Navigate to <http://127.0.0.1/{PZ_X}/index.php> (where "X" is lesson number)
+
+create wep page contain table data. create sort by 2 number props and 1 string props. create search by first letter 

@@ -1,0 +1,12 @@
+,,,,,,
+ID,Level,Disease / ICD-10 group,Synonyms and names of rare diseases accepted in the Russian-language literature and reference books included in this group,Nosological form / group of diseases,Category,ICD-10 code
+1,3,Candidiasis of skin and nails,"Chronic mucous candidiasis (CARD9 deficiency, IL17F deficiency, IL17RA deficiency)",group,Skin and subcutaneous tissue diseases,B37.2 
+2,4,Zygomycosis,"Zygomycosis, mucormycosis",group,Mycoses,B46.0-В46.9
+3,4,Solid tumors with NTRK gene fusions,Tumors containing chimeric TRK protein,group,neoplasms,С00-С80
+4,2,M.R.I. of the lip,Lip cancer,nosological form,neoplasms,C00
+5,1,Oral M.R.S.,"Oral cancer, tongue cancer, cheek mucosa cancer, hard palate mucosa cancer, maxillary and mandibular alveolar mucosa cancer, large salivary gland tumors, tonsil cancer",group,neoplasms,C01-09
+6,2,Nasopharyngeal cancer,Nasopharyngeal cancer,nosological formnosological form,neoplasms,С11
+7,3,oropharyngeal cancer,Oropharyngeal cancer,group,neoplasms,С10
+8,4,Laryngeal cancer,"Laryngeal cancer, lower pharyngeal cancer, hypopharyngeal cancer",group,neoplasms,"С12, С13"
+9,2,"Nasal, middle ear, and sinus disease",Nasal cavity and sinus cancer,group,neoplasms,"С30,С31"
+10,1,Laryngeal cancer,Laryngeal cancer,group,neoplasms,C32
