@@ -1,11 +1,17 @@
 <html>
+<head>
+  <link rel="stylesheet" href="index.css">
+</head>
 <body>
+  <br />
   <div>
     <a href='index.php?category=category'>Sort by category</a>
     <a href='index.php?id=id'>Sort by ID</a>  
     <a href='index.php?level=level'>Sort by level</a>
   </div>
+  <br />
 
+  <br />
   <form action="index.php" method="GET">
     <div>
       <label>Search: </label>
@@ -13,6 +19,7 @@
     </div>
     <button type="submit">Find</button>
   </form>
+  <br />
 
   <table>
   <?php
@@ -33,11 +40,15 @@
     $i = 0;
 
     while($i <= count($src)) {
-      $key = array_search($needle, $src[$i]);
+      $j = 0;
 
-      if($key){
-        return [$src[$i]];
-      }
+      while ($j <= count($src[$i])){
+        if (strpos(strval($src[$i][$j]), $needle) !== false) {
+          return [$src[$i]];
+        }
+
+        $j++;
+      }  
 
       $i++;
     }
