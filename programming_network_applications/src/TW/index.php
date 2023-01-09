@@ -1,29 +1,25 @@
 <html>
-<head>
-  <link rel="stylesheet" href="index.css">
-</head>
 <body>
-  <br />
   <div>
     <a href='index.php?category=category'>Sort by category</a>
+    <br />
     <a href='index.php?id=id'>Sort by ID</a>  
+    <br />
     <a href='index.php?level=level'>Sort by level</a>
   </div>
-  <br />
-
   <br />
   <form action="index.php" method="GET">
     <div>
       <label>Search: </label>
-      <input placeholder="Artem Samuilik" name="search">
+      <input placeholder="find" name="search">
+      <button type="submit">Find</button>
     </div>
-    <button type="submit">Find</button>
   </form>
   <br />
 
   <table>
   <?php
-  function csvToArray($csv){
+  function csv2array($csv){
      // create file handle to read CSV file
     $csvToRead = fopen($csv, 'r');
 
@@ -54,7 +50,7 @@
     }
   }
 
-  $csvArray = csvToArray("data.csv");
+  $csvArray = csv2array("data.csv");
 
   echo "<thead><tr>";
   foreach ($csvArray[1] as $th) {
@@ -65,15 +61,15 @@
   $csvArray = array_slice($csvArray, 2);
 
   if (isset($_GET['category'])) {
-    sort($csvArray, fn($a, $b) => $b[5] <=> $a[5]);
+    usort($csvArray, fn($a, $b) => $b[3] <=> $a[3]);
   }
 
   if (isset($_GET['id'])) {
-    usort($csvArray, fn($a, $b) => $b[0] <=> $a[0]);
+    usort($csvArray, fn($a, $b) => $b[0] <= $a[0]);
   }
 
   if (isset($_GET['level'])) {
-    usort($csvArray, fn($a, $b) => $b[1] <=> $a[1]);
+    usort($csvArray, fn($a, $b) => $b[1] <= $a[1]);
   }
 
   if (isset($_GET['search'])) {
